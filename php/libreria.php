@@ -1,28 +1,41 @@
 <?php
-  function ObtenerInformacion() {
+  function obtenerInformacion() {
     $archivo = fopen('./data-1.json', 'r');
     $leer = fread($archivo, filesize('../data-1.json'));
     $data = json_decode($leer, true);
     fclose($archivo);
     return $data;
+  };
+
+  // Obtener Ciudades y tipos
+  function obtenerCiudad($getData) {
+    $getCuidades = Array();
+    foreach ($getData as $key => $value) {
+      if (in_array($value['Ciudad'], $getCuidades)) {
+      } else {
+        array_push($getCuidades, $value['Ciudad']);
+      }
+    }
+    echo json_encode($getCuidades);
   }
 
-  $response = array();
-
-  // Obtener Ciudades
-
-  $ciudades = array();
-  $tipos = array();
-  $response['tituloContenido'] = '<div class="tituloContenido card">
-                                    <h5>Resultados de la búsqueda:</h5>
-                                    <div class="divider"></div>
-                                    <button type="button" name="todos" class="btn-flat waves-effect" id="mostrarTodos">Mostrar Todos</button>
-                                  </div>';
-  foreach ($data as $key => $value) {
-    // Seleccionar Ciudades
-    $ciudades[$key] = $value['Ciudad'];
-    $tipo[$key] = $value['Tipo'];
-
-    $response[$key] = ''
+// Obtener Tipos
+  function obtenerTipo($getData) {
+    $getTipo = Array();
+    foreach ($getData as $key => $value) {
+      if (in_array($value['Tipo'], $getTipo)) {
+      } else {
+        array_push($getTipo, $value['Tipo']);
+      }
+    }
+    echo json_encode($getTipo);
   }
+
+  //
+
+
+
+  $getData = leerDatos();
+  obtenerTipo($getData);
+  obtenerCiudad($getData);
  ?>
